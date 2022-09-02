@@ -1,0 +1,19 @@
+{
+  "name": "camagru",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dmi3Iva/camagru.git"
+  },
+  "author": "Dmi3Iva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dmi3Iva/camagru/issues"
+  },
+  "homepage": "https://github.com/Dmi3Iva/camagru#readme"
+}
