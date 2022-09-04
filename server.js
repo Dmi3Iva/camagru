@@ -1,15 +1,15 @@
 const express = require('express');
 const app = express();
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const dotenv = require("dotenv");
 const res = require('express/lib/response');
 
 dotenv.config();
 // Mongo DB connection
-// const database = process.env.MONGOLAB_URI;
-// mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true })
-// .then(() => console.log('e don connect'))
-// .catch(err => console.log('not able to connect', err));
+const database = process.env.MONGOLAB_URI;
+mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true })
+.then(() => console.log('connected to DB SUCCESS'))
+.catch(err => console.log('FAILED to connect to DB', err));
 
 app.get('/', (request, response)=>{
     response.writeHead(200);
