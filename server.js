@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require("dotenv");
 const User = require('./models/User');
+const session = require('express-session');
 
 dotenv.config();
 
@@ -12,19 +13,17 @@ mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true })
 .catch(err => console.log('FAILED to connect to DB', err));
 
 
-app.get('/', async (request, response)=>{
-    const user = await User.find();
-    response.writeHead(200);
-    response.write('ok, working, root, defently working');
-    response.write(typeof user);
-    response.write(user.toString());
-    response.send();
-});
-
 app.set('view engine', 'ejs');
 
+app.use(session({
+    secret:'oneboy',
+    saveUninitialized: true,
+    resave: true
+  }));
+
 //Routes
-// app.use('/', require('./routes/login'));
+app.use('/', require('./routes/login'));
+app.use(express.urlencoded({extended: false}));
 
 
 const PORT = process.env.PORT || 3001;
