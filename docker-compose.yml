@@ -15,6 +15,8 @@ services:
       - .:/usr/src/app
     links:
       - mongodb
+    environment:
+      - CHOKIDAR_USEPOLLING=true
   mongodb:
     image: mongo:latest
     ports:
