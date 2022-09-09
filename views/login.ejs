@@ -1,4 +1,5 @@
-<%- include('layout.ejs'); %>
+<%- include('header.ejs'); %>
+<div class="section"><div class="container">
     <div class="columns">
         <div class="column">
             <form class="form-horizontal" method="post" action="/login">
@@ -27,21 +28,14 @@
                         <button class="button is-success" type="submit">
                             Login
                         </button>
+                        <a class="button" href="/register">Register</a>
                     </p>
                 </div>
 
-                <div class="login-register">
-                    <a href="/register">Register</a>
-                </div>
-        </div>
-            </div>
-            <div class="columns">
-        <div class="column">
-            no more chains! oh really
-        </div>
-    </div>
+            </form>
+        </div></div>
+</div>
 
-    </form>
     </body>
 
     </html>
