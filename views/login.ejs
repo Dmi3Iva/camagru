@@ -1,41 +1,43 @@
 <%- include('header.ejs'); %>
-<div class="section"><div class="container">
+<div class="section">
+  <div class="container is-max-desktop">
     <div class="columns">
-        <div class="column">
-            <form class="form-horizontal" method="post" action="/login">
-                <div class="field">
-                    <p class="control has-icons-left has-icons-right">
-                        <input class="input" type="email" placeholder="Email" name="email">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                        <span class="icon is-small is-right">
-                            <i class="fas fa-check"></i>
-                        </span>
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control has-icons-left">
-                        <input class="input" type="password" placeholder="Password" name="password">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-lock"></i>
-                        </span>
-                    </p>
-                </div>
+      <div class="column">
+        <form class="form-horizontal" method="post" action="/login">
+          <div class="field">
+            <p class="control has-icons-left has-icons-right">
+              <input class="input" type="email" placeholder="Email" name="email">
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+              <span class="icon is-small is-right">
+                <i class="fas fa-check"></i>
+              </span>
+            </p>
+          </div>
+          <div class="field">
+            <p class="control has-icons-left">
+              <input class="input" type="password" placeholder="Password" name="password">
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+          </div>
 
-                <div class="field">
-                    <p class="control">
-                        <button class="button is-success" type="submit">
-                            Login
-                        </button>
-                        <a class="button" href="/register">Register</a>
-                    </p>
-                </div>
+          <div class="field">
+            <p class="control">
+              <button class="button is-primary" type="submit">
+                Login
+              </button>
+              <a class="button" href="/register">Register</a>
+            </p>
+          </div>
 
-            </form>
-        </div></div>
-</div>
+        </form>
+      </div>
+    </div>
+  </div>
 
-    </body>
+  </body>
 
-    </html>
+  </html>
