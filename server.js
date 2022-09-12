@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const User = require("./models/User");
 const session = require("express-session");
+const passport = require("passport");
+const { loginCheck } = require("./auth/passport");
+loginCheck(passport);
 
 dotenv.config();
 
@@ -15,6 +18,7 @@ mongoose
 
 app.set("view engine", "ejs");
 
+app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
     secret: "oneboy",
@@ -23,7 +27,11 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 //Routes
+// TODO:: add main page
 app.use("/", require("./routes/login"));
 app.use(express.urlencoded({ extended: false }));
 

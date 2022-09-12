@@ -1,12 +1,15 @@
 const passport = require("passport");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
-//For Register Page
+
 const registerView = (req, res) => {
   res.render("register", {});
 };
-//Post Request for Register
+
+// TODO:: rename name with login or nickname
 const registerUser = (req, res) => {
+  console.log("request", req);
+  console.log(req.body);
   const { name, email, location, password, confirm } = req.body;
   if (!name || !email || !password || !confirm) {
     console.log("Fill empty fields");
@@ -48,28 +51,35 @@ const registerUser = (req, res) => {
     });
   }
 };
-// For View
+
 const loginView = (req, res) => {
   res.render("login", {});
 };
-//Logging in Function
-const loginUser = (req, res) => {
-  const { email, password } = req.body;
-  //Required
-  if (!email || !password) {
-    console.log("Please fill in all the fields");
-    res.render("login", {
-      email,
-      password,
-    });
-  } else {
-    passport.authenticate("local", {
-      successRedirect: "/dashboard",
-      failureRedirect: "/login",
-      failureFlash: true,
-    })(req, res);
-  }
-};
+
+const loginUser = passport.authenticate("local", {
+  successRedirect: "/dashboard",
+  failureRedirect: "/login",
+  failureFlash: true,
+});
+// (req, res) => {
+//   const { name, password } = req.body;
+//   //Required
+//   if (!name || !password) {
+//     console.log("Please fill in all the fields");
+//     res.render("login", {
+//       name,
+//       password,
+//     });
+//   } else {
+//     console.log("args", arguments);
+//     passport.authenticate("local", {
+//       successRedirect: "/dashboard",
+//       failureRedirect: "/login",
+//       failureFlash: true,
+//     })(...arguments);
+//   }
+// };
+
 module.exports = {
   registerView,
   loginView,
