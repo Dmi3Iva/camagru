@@ -3,63 +3,64 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
 const registerView = (req, res) => {
-  res.render("register", {});
+    res.render("register");
 };
 
 // TODO:: rename name with login or nickname
 const registerUser = (req, res) => {
-  console.log("request", req);
-  console.log(req.body);
-  const { name, email, location, password, confirm } = req.body;
-  if (!name || !email || !password || !confirm) {
-    console.log("Fill empty fields");
-  }
-  //Confirm Passwords
-  if (password !== confirm) {
-    console.log("Password must match");
-  } else {
-    //Validation
-    User.findOne({ email: email }).then((user) => {
-      if (user) {
-        console.log("email exists");
+    const {name, email, location, password, confirm} = req.body;
+    if (!name || !email || !password || !confirm) {
         res.render("register", {
-          name,
-          email,
-          password,
-          confirm,
+            error: 'Please fill all fields!'
         });
-      } else {
+    }
+    if (password !== confirm) {
+        res.render("register", {
+            error: 'Password must match!'
+        });
+    } else {
         //Validation
-        const newUser = new User({
-          name,
-          email,
-          location,
-          password,
+        User.findOne({email: email}).then((user) => {
+            if (user) {
+                res.render("register", {
+                    error: `The user with this email "${user.email}" already registered!`,
+                    name,
+                    email,
+                    password,
+                    confirm,
+                });
+            } else {
+                //Validation
+                const newUser = new User({
+                    name,
+                    email,
+                    location,
+                    password,
+                });
+                //Password Hashing
+                bcrypt.genSalt(10, (err, salt) =>
+                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                        if (err) throw err;
+                        newUser.password = hash;
+                        newUser
+                            .save()
+                            .then(res.redirect("/login"))
+                            .catch((err) => console.log(err));
+                    })
+                );
+            }
         });
-        //Password Hashing
-        bcrypt.genSalt(10, (err, salt) =>
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
-            newUser.password = hash;
-            newUser
-              .save()
-              .then(res.redirect("/login"))
-              .catch((err) => console.log(err));
-          })
-        );
-      }
-    });
-  }
+    }
 };
 
 const loginView = (req, res) => {
-  res.render("login", {});
+    res.render("login", {});
 };
 
 const loginUser = passport.authenticate("local", {
-  successRedirect: "/dashboard",
-  failureRedirect: "/login",
-  failureFlash: true,
+    successRedirect: "/dashboard",
+    failureRedirect: "/login",
+    failureFlash: true,
 });
 // (req, res) => {
 //   const { name, password } = req.body;
@@ -81,8 +82,8 @@ const loginUser = passport.authenticate("local", {
 // };
 
 module.exports = {
-  registerView,
-  loginView,
-  registerUser,
-  loginUser,
+    registerView,
+    loginView,
+    registerUser,
+    loginUser,
 };
