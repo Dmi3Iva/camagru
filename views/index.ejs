@@ -1,0 +1,18 @@
+<%- include('header.ejs'); %>
+<div class="section">
+    <div class="container">
+        <% if (user?.isAuth) { %>
+            <div class="row justify-content-center">
+                <h3>My name is <%= user.name %> </h3> &nbsp;
+                <a href="/logout">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Logout</button>
+                </a>
+            </div>
+        <% } else { %>
+            <h1 class="title">You're not authorized</h1>
+            <a class="button is-link" href="/login">Login</a>
+        <% } %>
+    </div>
+</div>
+</body>
+</html>
